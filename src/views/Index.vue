@@ -28,10 +28,10 @@
             <router-link to="/supplier/list">店铺列表</router-link>
           </a-menu-item>
         </a-sub-menu>
-        <a-menu-item key="1">
+        <!-- <a-menu-item key="1">
           <a-icon type="user" />
           <span>nav 1</span>
-        </a-menu-item>
+        </a-menu-item> -->
       </a-menu>
     </a-layout-sider>
     <a-layout>

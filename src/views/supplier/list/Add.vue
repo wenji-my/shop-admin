@@ -1,9 +1,9 @@
 <template>
   <div>
     <a-layout style="background: #fff;">
-      <a-layout-header style="background: #fff; padding: 0">
-        <div class="">添加店铺</div>
-      </a-layout-header>
+        <div class="title">添加店铺</div>
+      <!-- <a-layout-header style="background: #fff; padding: 0">
+      </a-layout-header> -->
       <a-layout-content>
         <a-form 
           layout="horizontal" 
@@ -50,7 +50,7 @@
                   'category',
                   {rules: [{ required: true, message: '请选择店铺分类!' }]}
                 ]">
-                <a-select-option v-for="(item, index) in categoryList" :key="index" :value="item.id">{{item.name}}</a-select-option>
+                <a-select-option v-for="(item, index) in categoryList" :key="index" :value="item.name">{{item.name}}</a-select-option>
               </a-select>
           </a-form-item>
           <a-form-item
@@ -93,7 +93,7 @@
             <a-select 
               style="width:50%;"
               v-decorator="[
-                'prefix',
+                'status',
                 { initialValue: '1' }
               ]">
               <a-select-option value="1">启用</a-select-option>
@@ -115,7 +115,7 @@
 </template>
 
 <script>
-import {getSupplierCategory} from '@/request'
+import {getSupplierCategory,addSupplier} from '@/request'
 
 export default {
   data() {
@@ -154,6 +154,26 @@ export default {
       this.form.validateFieldsAndScroll((err, values) => {
         if (!err) {
           console.log(values)
+          const params = {
+            logo: this.imageUrl,
+            address: values.address,
+            category: values.category,
+            linkman: values.linkman,
+            name: values.name,
+            phone: values.phone,
+            status: values.status,
+          }
+          addSupplier(params).then(res => {
+            console.log(res)
+            if (res.code === 1) {
+              this.$message.success('添加成功')
+              this.form.resetFields()
+              this.imageUrl = ''
+            }
+            if (res.code === 0) {
+              this.$message.error('店铺已存在')
+            }
+          })
         }
       });
     },
@@ -173,6 +193,12 @@ export default {
 </script>
 
 <style scoped>
+.title {
+  border-bottom: 1px solid #dddddd;
+  padding-bottom: 20px;
+  margin-bottom: 30px;
+  font-size: 20px;
+}
 .avatar-uploader > .ant-upload {
   width: 128px;
   height: 128px;

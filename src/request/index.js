@@ -41,7 +41,7 @@ const getProducts = (reqData) => {
   return getData(url, data);
 }
 const getSuppliers = (reqData) => {
-  const url = '/supplier/list';
+  const url = '/admin/supplier/info/list';
   const data = reqData;
   return getData(url, data);
 }
@@ -51,7 +51,7 @@ const publishProduct = (reqData) => {
   return postData(url, data);
 }
 const addSupplier = (reqData) => {
-  const url = '/admin/supplier/category/create';
+  const url = '/admin/supplier/info/create';
   const data = reqData;
   return postData(url, data);
 }
@@ -71,7 +71,7 @@ const getSupplierCategory = (reqData) => {
   return getData(url, data);
 }
 const createSupplierCategory = (reqData) => {
-  const url = '/supplier/category/add';
+  const url = '/admin/supplier/category/create';
   const data = reqData;
   return postData(url, data);
 }

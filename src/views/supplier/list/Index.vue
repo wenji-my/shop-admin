@@ -11,7 +11,7 @@
           <template v-for="col in ['image', 'name', 'category', 'link_man', 'phone', 'address', 'status']" :slot="col" slot-scope="text">
             <div :key="col">
               <template v-if="col === 'image'">
-                <img style="height: 128px;" :src="$store.state.config.img_host+text" alt="">
+                <img style="height: 60px;" :src="$store.state.config.img_host+text" alt="">
               </template>
               <template v-else>{{text}}</template>
             </div>
@@ -28,6 +28,7 @@
 </template>
 
 <script>
+import {getSuppliers} from '@/request'
 const columns = [{
   title: '店铺LOGO',
   dataIndex: 'image',
@@ -73,6 +74,24 @@ export default {
       columns,
       list: [],
     }
+  },
+  created() {
+    getSuppliers().then(res => {
+      console.log(res)
+      if (res.code === 1) {
+        for (const item of res.data) {
+          this.list.push({
+            image: item.logo,
+            name: item.name,
+            category: item.category,
+            link_man: item.link_man,
+            phone: item.phone,
+            address: item.address,
+            status: item.status === 1 ? '启用':'禁用'
+          })
+        }
+      }
+    })
   },
   methods: {
     clickAdd() {

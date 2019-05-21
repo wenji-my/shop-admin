@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import {addSupplier,getSupplierCategory} from '@/request'
+import {createSupplierCategory,getSupplierCategory} from '@/request'
 const columns = [{
   title: '分类名称',
   dataIndex: 'name',
@@ -93,7 +93,7 @@ export default {
           return
         }
       }
-      addSupplier({name: this.reqParams.name}).then(res => {
+      createSupplierCategory({name: this.reqParams.name}).then(res => {
         console.log(res)
         if (res.code === 1) {
           this.$message.success('添加成功')
